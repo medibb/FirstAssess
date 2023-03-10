@@ -1,0 +1,13 @@
+name: FirstAssess
+title: FirstAssess
+username:
+account: medibb
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8536597
+bundleId: 6942707
+url: https://medibb.shinyapps.io/FirstAssess/
+when: 1678471297.92511
+lastSyncTime: 1678471297.92515
+asMultiple: FALSE
+asStatic: FALSE
