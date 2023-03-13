@@ -142,22 +142,7 @@ server <- function(input, output) {
       note = input$note
     )
     save_data(data)
-    # 저장된 데이터를 출력합니다.
-    output$report <- renderPrint({
-      # 저장된 데이터를 읽어옵니다.
-      data <- load_data()
-      # 읽어온 데이터를 출력합니다.
-      paste0("성별: ", data$gender, "\n",
-             "나이: ", data$age, "\n",
-             "지역: ", data$region, "\n",
-             "방문일: ", data$date, "\n\n",
-             "현재 증상: ", data$symptom, "\n",
-             "증상 심각도: ", data$severity, "\n",
-             "만성적인 증상: ", ifelse(data$chronic, "예", "아니오"), "\n",
-             "과거력: ", paste(data$medical_history, collapse = ", "), "\n",
-             "치료 및 복용 중인 약물: ", data$treatment, "\n",
-             "기타 사항: ", data$note)
-    })
+
   })
 }
 
@@ -229,7 +214,7 @@ server <- function(input, output) {
     save_data(data)
     # 저장된 데이터를 출력합니다.
     output$report <- renderPrint({
-      paste0("성별: ", input$gender, "\n",
+      paste("성별: ", input$gender, "\n",
              "나이: ", input$age, "\n",
              "지역: ", input$region, "\n",
              "방문일: ", input$date, "\n\n",

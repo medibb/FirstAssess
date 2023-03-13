@@ -1,0 +1,32 @@
+"x"
+"S) onset: 1주일 내 ago (날짜: 2023-03-14 ) 
+ mode:  갑자기 생긴 통증 
+ area:  Rt. Shoulder 에 lateral 생긴 
+ 통증nRS:  5 
+ resting nRS:  5 
+ severe nRS:  5 
+ Agg factor:   
+ 운동:   
+ 직업:   
+ ROM(Flx-Abd-ES-IS-ER) :  -  -  -  -  
+ ER pain ( - ) 
+ flexion & abduction pain ( -  /  - ) 
+ Hawkin's / Neer / Empty-can / belly press: ( -  /  -  /  -  /  - ) 
+ horizontal add ( - ) 
+ AC joint Td ( - ) 
+ painful arc / resistive abduction ( - ) 
+ instability test / apprehension test ( - / - ) 
+ spurling ( - ) 
+ o) xray : no_specific_abnormal_findings 
+ LBTS : no effusion 
+ SSc: no_definite_abnormality 
+ AC : no_definite_abnormality 
+ SST : no_definite_abnormality 
+ Shortaxis: no_definite_abnormality 
+ SASD bursa : no_definite_abnormality 
+ IST : no_definite_abnormality 
+ inj : IA inj : total 20cc, tam1@ 
+ 
+ A) # Calcific tendinitis on rotator cuff 
+ 
+ P) # RTC in 6wks"

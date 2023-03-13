@@ -18,7 +18,7 @@ ui <- fluidPage(
                              choices = c("목", "어깻죽지", "어깨", "팔", "팔꿈치", "손목/손", "허리", "엉덩이", "허벅지", "무릎","종아리", "발"), multiple = TRUE),
                  selectInput("onset", "통증이 언제 생겼나요?", choices = c("1주일 내", "1달 내", "3달 내", "6개월 이상")),
                  dateInput("date", "통증이 생긴 날이 기억나면 선택해주세요", value = Sys.Date()),
-                 selectInput("mode", "통증이 어떻게 생겼나요?", choices = c("갑자기", "서서히", "모르겠다")),
+                 selectInput("mode", "통증이 어떻게 생겼나요?", choices = c("갑자기", "서서히", "잘 모르게")),
         ),
         tabPanel("일상생활",
                  radioButtons("lifestyle", "집에서 생활할 때", choices = c("좌식생활(바닥에 앉고 바닥에서 잡니다.)", "입식생활(의자에 앉고 침대에서 잡니다.)",
@@ -32,14 +32,18 @@ ui <- fluidPage(
         )
       )
       ),
-    mainPanel(height = "1000px",
-      sliderInput("nrs", "현재의 통증 강도를 0 ~ 10 점사이로 표시해 주세요 (10 - 죽을만큼아픔, 절단통 / 9 - 산통 / 5 - 중간 / 0 - 통증없음)",
-      min = 0, max = 10, value = 5, width = '100%'),
-      plotOutput("plot1", click = "plot_click"),
-      actionButton("clear", "다시 그리기")
+    mainPanel(
+          sliderInput("nrs", "현재 통증 강도를 0 ~ 10 점사이로 표시해 주세요 (10 - 죽을만큼아픔, 절단통 / 9 - 산통 / 5 - 중간 / 0 - 통증없음)",
+                      min = 0, max = 10, value = 5, width = '100%'),
+          sliderInput("nrsR", "가만히 있을 때 통증 강도를 0 ~ 10 점사이로 표시해 주세요",
+                      min = 0, max = 10, value = 5, width = '100%'),
+          sliderInput("nrsS", "가장 심할 때 통증 강도를 0 ~ 10 점사이로 표시해 주세요",
+                      min = 0, max = 10, value = 5, width = '100%'),
+          plotOutput("plot1", click = "plot_click"),
+          actionButton("clear", "다시 그리기")
+        )
     )
   )
-)
 
 
 
@@ -52,26 +56,24 @@ server <- function(input, output) {
   }
   
   # 데이터를 저장할 경로
-  save_path <- "pain_data.csv"
+  save_path <- "pain_data.txt"
   
   # 저장 버튼 클릭 이벤트
   observeEvent(input$save, {
     # 데이터를 생성합니다.
-    data <- data.frame(
-      ID = input$ID,
-      cc = input$cc,
-      onset = input$onset,
-      date = input$date,
-      mode = input$mode,
-      lifestyle = input$lifestyle,
-      exercise = input$exercise,
-      injHx = input$injHx,
-      nrs = input$nrs
-    )
+    data <- paste("현재 증상: ", input$mode, "생긴", input$cc,"통증", "\n",
+                  "onset:", input$onset, "날짜:", input$date, "\n",
+                  "통증nRS: ", input$nrs, "\n",
+                  "resting nRS: ", input$nrsR, "\n",
+                  "severe nRS: ", input$nrsS, "\n",
+                  "운동: ", input$exercise, "\n",
+                  "생활습관: ", input$lifestyle, "\n",
+                  "inj Hx: ", input$treatment)
     # 데이터를 저장합니다.
     save_data(data, save_path)
+    writeClipboard(data)
     # 저장 완료 메시지를 출력합니다.
-    showModal(modalDialog("저장되었습니다."))
+    showModal(modalDialog("초진기록이 잘 저장되었습니다."))
   })
   
   
@@ -99,15 +101,11 @@ server <- function(input, output) {
       points(clicked_points$x, clicked_points$y, col = "red", pch = 16)
     }
     
-    output$nameOutput <- renderText({
-      paste("당신의 이름은", input$name, "입니다.")
-    })
-    
 
     # Save image if button is clicked
     output$downloadData <- downloadHandler(
       filename = function() {
-        paste0("pain_diagram_", Sys.Date(), ".png")
+        paste0(input$ID, Sys.Date(), ".png")
       },
       
       content = function(file) {
